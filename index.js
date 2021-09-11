@@ -16,7 +16,7 @@ app.get('/products/:productId', async (req, res) => {
     const { productId } = req.params;
     const { api_key } = req.query;
     try{
-        const response = await request(`${generateScraperUrl(api_key)}&url=http://www.amazon.com/dp/${productId}`);
+        const response = await request(`${generateScraperUrl(api_key)}&url=https://www.amazon.com/dp/${productId}`);
         res.json(JSON.parse(response));
     }catch(err){
         res.json(err);
@@ -29,7 +29,7 @@ app.get('/products/:productId/reviews', async (req, res) => {
     const { productId } = req.params;
     const { api_key } = req.query;
     try{
-        const response = await request(`${generateScraperUrl(api_key)}&url=http://www.amazon.com/product-reviews/${productId}`);
+        const response = await request(`${generateScraperUrl(api_key)}&url=https://www.amazon.com/product-reviews/${productId}`);
         res.json(JSON.parse(response));
     }catch(err){
         res.json(err);
