@@ -13,7 +13,7 @@ app.get('/', (req, res) => {
 })
 
 const options = {
-    timeout: 90000
+    timeout: 1800000
 }
 
 // Get Product details 
