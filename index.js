@@ -11,12 +11,17 @@ app.use(express.json());
 app.get('/', (req, res) => {
     res.send('it works!')
 })
+
+const options = {
+    timeout: 90000
+}
+
 // Get Product details 
 app.get('/products/:productId', async (req, res) => {
     const { productId } = req.params;
     const { api_key } = req.query;
     try{
-        const response = await request(`${generateScraperUrl(api_key)}&url=https://www.amazon.sg/dp/${productId}`);
+        const response = await request(`${generateScraperUrl(api_key)}&url=https://www.amazon.sg/dp/${productId}`,options);
         res.json(JSON.parse(response));
     }catch(err){
         res.json(err);
@@ -29,7 +34,7 @@ app.get('/products/:productId/reviews', async (req, res) => {
     const { productId } = req.params;
     const { api_key } = req.query;
     try{
-        const response = await request(`${generateScraperUrl(api_key)}&url=https://www.amazon.sg/product-reviews/${productId}`);
+        const response = await request(`${generateScraperUrl(api_key)}&url=https://www.amazon.sg/product-reviews/${productId}`,options);
         res.json(JSON.parse(response));
     }catch(err){
         res.json(err);
@@ -41,7 +46,7 @@ app.get('/products/:productId/offers', async (req, res) => {
     const { productId } = req.params;
     const { api_key } = req.query;
     try{
-        const response = await request(`${generateScraperUrl(api_key)}&url=https://www.amazon.sg/gp/offer-listing/${productId}`);
+        const response = await request(`${generateScraperUrl(api_key)}&url=https://www.amazon.sg/gp/offer-listing/${productId}`,options);
         res.json(JSON.parse(response));
     }catch(err){
         res.json(err);
@@ -53,7 +58,7 @@ app.get('/search/:searchQuery', async (req, res) => {
     const { searchQuery } = req.params;
     const { api_key } = req.query;
     try{
-        const response = await request(`${generateScraperUrl(api_key)}&url=https://www.amazon.sg/s?k=${searchQuery}`);
+        const response = await request(`${generateScraperUrl(api_key)}&url=https://www.amazon.sg/s?k=${searchQuery}`,options);
         res.json(JSON.parse(response));
     }catch(err){
         res.json(err);
